@@ -3,12 +3,10 @@ import os
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import Chroma
-# Updated package path to avoid deprecation warnings and performance issues
-from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_groq import ChatGroq
-# Correct 2026 legacy integration imports
-from langchain_classic.chains import create_retrieval_chain
-from langchain_classic.chains.combine_documents import create_stuff_documents_chain
+from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_community.chat_models import ChatGroq
+from langchain.chains import create_retrieval_chain
+from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_core.prompts import ChatPromptTemplate
 import tempfile
 
@@ -64,7 +62,7 @@ if uploaded_files:
             text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
             splits = text_splitter.split_documents(all_docs)
             
-            # Using the modernized, lightweight HuggingFace framework embedding layer
+            # Stable loading of the free embedding layer
             embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
             st.session_state.vector_store = Chroma.from_documents(splits, embeddings)
             
