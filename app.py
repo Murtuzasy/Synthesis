@@ -5,7 +5,8 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import Chroma
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_groq import ChatGroq
-from langchain.chains import create_retrieval_chain
+# Bulletproof updated imports:
+from langchain.chains.retrieval import create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_core.prompts import ChatPromptTemplate
 import tempfile
@@ -93,8 +94,8 @@ if st.session_state.vector_store is not None:
                 ("human", "{input}"),
             ])
             
-            question_answer_chain = create_stuff_documents_chain(llm, prompt)
-            rag_chain = create_retrieval_chain(retriever, question_answer_chain)
+       from langchain.chains import create_retrieval_chain
+from langchain.chains.combine_documents import create_stuff_documents_chain
             
             response = rag_chain.invoke({"input": user_query})
             
