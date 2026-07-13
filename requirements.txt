@@ -1,11 +1,8 @@
-streamlit
-langchain
-langchain-core
-langchain-community
-langchain-classic
-langchain-groq
-langchain-huggingface
+streamlit==1.35.0
+langchain==0.1.20
+langchain-community==0.0.38
+langchain-openai==0.1.6
 chromadb==0.4.24
 numpy==1.26.4
-pypdf
-torch
+pypdf==4.2.0
+sentence-transformers==2.7.0
