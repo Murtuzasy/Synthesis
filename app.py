@@ -3,8 +3,6 @@ import os
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import Chroma
-from langchain_community.embeddings import HyperedEmbedding # Using a free built-in or lightweight embedding alternative
-# We will use HuggingFace embeddings so you don't need an embedding token cost
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_groq import ChatGroq
 from langchain.chains import create_retrieval_chain
