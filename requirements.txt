@@ -4,8 +4,8 @@ langchain-core
 langchain-community
 langchain-classic
 langchain-groq
+langchain-huggingface
 chromadb==0.4.24
+numpy==1.26.4
 pypdf
 torch
-torchvision
-sentence-transformers
