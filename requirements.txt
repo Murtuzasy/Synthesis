@@ -4,4 +4,6 @@ langchain-community
 langchain-groq
 chromadb==0.4.24
 pypdf
+torch
+torchvision
 sentence-transformers
