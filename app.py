@@ -5,7 +5,6 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import Chroma
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_groq import ChatGroq
-# Bulletproof updated imports:
 from langchain.chains.retrieval import create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_core.prompts import ChatPromptTemplate
@@ -63,7 +62,6 @@ if uploaded_files:
             text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
             splits = text_splitter.split_documents(all_docs)
             
-            # Using a free, locally running embedding model in the cloud container (no API key needed)
             embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
             st.session_state.vector_store = Chroma.from_documents(splits, embeddings)
             
@@ -78,7 +76,6 @@ if st.session_state.vector_store is not None:
     
     if user_query:
         with st.spinner("Analyzing cross-references..."):
-            # Using the fast, free Llama 3.3 model via Groq
             llm = ChatGroq(model="llama-3.3-70b-specdec", groq_api_key=groq_api_key, temperature=0.2)
             retriever = st.session_state.vector_store.as_retriever(search_kwargs={"k": 5})
             
@@ -94,8 +91,8 @@ if st.session_state.vector_store is not None:
                 ("human", "{input}"),
             ])
             
-       from langchain.chains import create_retrieval_chain
-from langchain.chains.combine_documents import create_stuff_documents_chain
+            question_answer_chain = create_stuff_documents_chain(llm, prompt)
+            rag_chain = create_retrieval_chain(retriever, question_answer_chain)
             
             response = rag_chain.invoke({"input": user_query})
             
