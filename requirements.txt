@@ -1,6 +1,8 @@
 streamlit
 langchain
+langchain-core
 langchain-community
+langchain-classic
 langchain-groq
 chromadb==0.4.24
 pypdf
