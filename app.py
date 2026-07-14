@@ -87,7 +87,7 @@ if st.session_state.vector_store is not None:
 
     if user_query:
         with st.spinner("Analyzing cross-references..."):
-            llm = ChatGroq(model="llama3-70b-8192", groq_api_key=groq_api_key, temperature=0.2)
+            llm = ChatGroq(model="openai/gpt-oss-120b", groq_api_key=groq_api_key, temperature=0.2)
             retriever = st.session_state.vector_store.as_retriever(search_kwargs={"k": 5})
 
             system_prompt = (
@@ -110,7 +110,8 @@ if st.session_state.vector_store is not None:
             try:
                 response = rag_chain.invoke({"input": user_query})
             except Exception as e:
-                st.error(f"Error while generating answer: {e}")
+                st.error(f"Error while generating answer: {type(e).__name__}: {e}")
+                st.exception(e)
                 st.stop()
 
             st.markdown("### Synthesized Answer")
