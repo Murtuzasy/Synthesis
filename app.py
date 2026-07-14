@@ -4,7 +4,8 @@ from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import Chroma
 from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain_community.chat_models import ChatGroq
+# Fixed: Importing ChatGroq from its dedicated package
+from langchain_groq import ChatGroq
 from langchain.chains import create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_core.prompts import ChatPromptTemplate
@@ -77,7 +78,8 @@ if st.session_state.vector_store is not None:
     
     if user_query:
         with st.spinner("Analyzing cross-references..."):
-            llm = ChatGroq(model="llama-3.3-70b-specdec", groq_api_key=groq_api_key, temperature=0.2)
+            # Using the fast, free Llama 3 model via Groq
+            llm = ChatGroq(model="llama3-70b-8192", groq_api_key=groq_api_key, temperature=0.2)
             retriever = st.session_state.vector_store.as_retriever(search_kwargs={"k": 5})
             
             system_prompt = (
